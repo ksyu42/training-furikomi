@@ -36,7 +36,7 @@ public class TransferRequest {
     private String memo;
 
     @Column(nullable = false)
-    private String status;	
+    private TransferRequestStatus status;	
 
     @Column(name = "requested_at", nullable = false)
     private LocalDateTime requestedAt;	

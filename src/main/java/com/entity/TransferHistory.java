@@ -33,7 +33,7 @@ public class TransferHistory {
     private LocalDateTime processedAt;
 
     @Column(name = "result_status", nullable = false)
-    private String resultStatus;	
+    private TransferHistoryResultStatus resultStatus;	
     
     @Column(name = "error_code")
     private String errorCode;	
