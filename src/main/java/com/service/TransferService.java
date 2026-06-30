@@ -97,23 +97,25 @@ public class TransferService {
 
         /* ⑧ 振込依頼レコード登録
          *    TransferRequest を builder で生成して save()                 */
-    	TransferRequest request = new TransferRequest();
-        request.setFromAccountId(fromAccount.getAccountId());
-        request.setAmount(dto.getAmount());
-        request.setTransferDate(dto.getTransferDate());
-        request.setStatus(TransferRequestStatus.COMPLETED);
-        request.setRequestedAt(LocalDateTime.now());
-        transferRequestRepository.save(request);
+    	TransferRequest request = TransferRequest.builder()
+    	        .fromAccountId(fromAccount.getAccountId())
+    	        .amount(dto.getAmount())
+    	        .transferDate(dto.getTransferDate())
+    	        .status(TransferRequestStatus.COMPLETED)
+    	        .requestedAt(LocalDateTime.now())
+    	        .build();
+    	transferRequestRepository.save(request);
     	
         /* ⑨ 振込履歴レコード登録
          *    TransferHistory を builder で生成して save()                 */
-    	TransferHistory history = new TransferHistory();
-        history.setRequestId(request.getRequestId()); //TransferRequest requestに紐づけ
-        history.setProcessedAt(LocalDateTime.now());
-        history.setResultStatus(TransferHistoryResultStatus.COMPLETED);
-        history.setBalanceBefore(balanceBefore);
-        history.setBalanceAfter(balanceAfter);
-        transferHistoryRepository.save(history);
+    	TransferHistory history = TransferHistory.builder()
+    	        .requestId(request.getRequestId()) // TransferRequest requestに紐づけ
+    	        .processedAt(LocalDateTime.now())
+    	        .resultStatus(TransferHistoryResultStatus.COMPLETED)
+    	        .balanceBefore(balanceBefore)
+    	        .balanceAfter(balanceAfter)
+    	        .build();
+    	transferHistoryRepository.save(history);
 
         /* ⑩ TransferResponseDto を builder で生成して return する            */
         return TransferResponseDto.builder()
