@@ -1,0 +1,34 @@
+<form th:action="@{/transfer/confirm}" th:object="${form}" method="post">
+
+  <!-- グローバルエラー：th:if + th:each で表示すること -->
+  <div th:if="${#fields.hasGlobalErrors()}">
+    <p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
+  </div>
+  
+  <label>振込元口座番号</label>
+  <input type="text" th:field="*{fromAccountNumber}" id="fromAccountNumber" maxlength="7"/>
+  <span id="from-holder"></span>
+  <!-- fromAccountNumber のエラーメッセージ：th:if + th:errors で表示すること -->
+  <span th:if="${#fields.hasErrors('fromAccountNumber')}" th:errors="*{fromAccountNumber}"></span>
+
+  <label>振込先口座番号</label>
+  <input type="text" th:field="*{toAccountNumber}" id="toAccountNumber" maxlength="7"/>
+  <span id="to-holder"></span>
+  <!-- toAccountNumber のエラーメッセージ：th:if + th:errors で表示すること -->
+  <span th:if="${#fields.hasErrors('toAccount')}" th:errors="*{toAccount}"></span>
+
+  <label>振込金額（円）</label>
+  <input type="number" th:field="*{amount}" min="1"/>
+  <!-- amount のエラーメッセージ：th:if + th:errors で表示すること -->
+  <span th:if="${#fields.hasErrors('amount')}" th:errors="*{amount}"></span>
+
+  <label>振込予定日</label>
+  <input type="date" th:field="*{transferDate}"/>
+  <!-- transferDate のエラーメッセージ：th:if + th:errors で表示すること -->
+  <span th:if="${#fields.hasErrors('transferDate')}" th:errors="*{transferDate}">
+
+  <label>メモ（任意）</label>
+  <textarea th:field="*{memo}"></textarea>
+
+  <button type="submit">確認画面へ</button>
+</form>

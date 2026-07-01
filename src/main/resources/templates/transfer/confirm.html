@@ -1,0 +1,31 @@
+<!-- 確認テーブル -->
+<table>
+  <tr><th>振込元</th>
+    <!-- fromAccount.accountNumber と accountHolder を表示すること -->
+    <td th:text="${fromAccount.accountNumber} + ' ' + ${fromAccount.accountHolder}"></td>
+  </tr>
+  <tr><th>振込先</th>
+    <!-- toAccount.accountNumber と accountHolder を表示すること -->
+    <td th:text="${toAccount.accountNumber} + ' ' + ${toAccount.accountHolder}"></td>
+  </tr>
+  <tr><th>振込金額</th>
+    <!-- form.amount をカンマ区切り＋「円」で表示すること -->
+    <td th:text="${#numbers.formatInteger(form.amount, 1, 'COMMA')} + '円'"></td>
+  </tr>
+  <tr><th>振込予定日</th>
+    <!-- form.transferDate を yyyy/MM/dd 形式で表示すること -->
+    <td th:text="${#temporals.format(form.transferDate, 'yyyy/MM/dd')}"></td>
+  </tr>
+</table>
+
+<form th:action="@{/transfer/execute}" th:object="${form}" method="post">
+  <!-- fromAccountNumber, toAccountNumber, amount, transferDate, memo を
+       hidden フィールドとして追加すること -->
+  <input type="hidden" th:field="*{fromAccountNumber}" />
+  <input type="hidden" th:field="*{toAccountNumber}" />
+  <input type="hidden" th:field="*{amount}" />
+  <input type="hidden" th:field="*{transferDate}" />
+  <input type="hidden" th:field="*{memo}" />
+  <button type="submit">振込を実行する</button>
+</form>
+<a th:href="@{/transfer/input}">戻る</a>

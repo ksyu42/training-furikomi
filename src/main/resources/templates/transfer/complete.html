@@ -1,0 +1,18 @@
+<!-- 成功時と失敗時で th:if を使って表示を切り替えること -->
+
+<!-- 成功時 -->
+<div th:if="${response != null}">
+  <h2>振込が完了しました</h2>
+  <!-- requestId, balanceAfter（カンマ区切り・円）, processedAt（日時フォーマット）を表示すること -->
+  <p>依頼ID: <span th:text="${response.requestId}"></span></p>
+  <p>処理後残高: <span th:text="${#numbers.formatInteger(response.balanceAfter, 1, 'COMMA')} + '円'"></span></p>
+  <p>処理日時: <span th:text="${#temporals.format(response.processedAt, 'yyyy/MM/dd HH:mm:ss')}"></span></p>
+</div>
+
+<!-- 失敗時 -->
+<div th:if="${errorMessage != null}">
+  <h2>振込に失敗しました</h2>
+  <!-- errorMessage を表示すること -->
+  <p th:text="${errorMessage}" style="color:red;"></p>
+</div>
+
