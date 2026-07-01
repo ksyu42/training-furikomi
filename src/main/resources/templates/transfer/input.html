@@ -15,7 +15,7 @@
   <input type="text" th:field="*{toAccountNumber}" id="toAccountNumber" maxlength="7"/>
   <span id="to-holder"></span>
   <!-- toAccountNumber のエラーメッセージ：th:if + th:errors で表示すること -->
-  <span th:if="${#fields.hasErrors('toAccount')}" th:errors="*{toAccount}"></span>
+  <span th:if="${#fields.hasErrors('toAccountNumber')}" th:errors="*{toAccountNumber}"></span>
 
   <label>振込金額（円）</label>
   <input type="number" th:field="*{amount}" min="1"/>
@@ -25,7 +25,7 @@
   <label>振込予定日</label>
   <input type="date" th:field="*{transferDate}"/>
   <!-- transferDate のエラーメッセージ：th:if + th:errors で表示すること -->
-  <span th:if="${#fields.hasErrors('transferDate')}" th:errors="*{transferDate}">
+  <span th:if="${#fields.hasErrors('transferDate')}" th:errors="*{transferDate}"></span>
 
   <label>メモ（任意）</label>
   <textarea th:field="*{memo}"></textarea>
